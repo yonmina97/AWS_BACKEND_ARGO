@@ -1,0 +1,38 @@
+version: 0.2
+
+phases:
+
+  install:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 986611521344.dkr.ecr.ap-northeast-2.amazonaws.com
+
+  pre_build:
+    commands:
+      - echo "Checking S3 access..."
+      - curl -I https://s3.ap-northeast-2.amazonaws.com
+
+  build:
+    commands:
+      - echo BUILDING THE DOCKER IMAGE...
+      - git clone https://github.com/yonmina97/AWS_FRONTEND_CHATBOT.git --branch dev
+      - cd AWS_FRONTEND_CHATBOT
+      - IMAGE_TAG=$(git log -1 --pretty=%H)
+      - IMAGE_URI=986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/frontend:$IMAGE_TAG
+      - docker build -t chatbot_frontend 
+      - docker tag -t chatbot_frontend $IMAGE_URI
+      - docker push AWS_FRONTEND_CHATBOT
+      - cd /
+      - git clone https://github.com/yonmina97/AWS_BACKEND_ARGO.git --branch frontend
+      - cd AWS_BACKEND_ARGO
+      - cd k8s
+      - yq -i '.spec.template.spec.containers[0].image = '$IMAGE_URI'
+      - git config --global user.email "yonmina97@naver.com"
+      - git config --global user.name "JINYOUNG-AUTO"
+      - git add .
+      - git commit -m "modify - Update image tag to $IMAGE_TAG"
+      - git push
+
+artifacts:
+  files:
+    - '**/*'

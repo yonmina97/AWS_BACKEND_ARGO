@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatbot-frontend-svc
+  namespace: dev
+spec:
+  selector:
+    app: chatbot-frontend
+  ports:
+    - protocol: TCP
+      port: 5173        # 외부 노출 포트
+      targetPort: 5173  # 컨테이너 내부 포트
+  type: LoadBalancer
