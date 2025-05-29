@@ -14,7 +14,7 @@ phases:
   build:
     commands:
       - echo BUILDING THE DOCKER IMAGE...
-      - git clone https://github.com/yonmina97/AWS_BACKEND_CHATBOT.git --branch dev
+      - git clone https://github.com/yonmina97/AWS_BACKEND_CHATBOT.git --branch backend
       - cd AWS_BACKEND_CHATBOT
       - IMAGE_TAG=$(git log -1 --pretty=%H)
       - IMAGE_URI=986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/backend:$IMAGE_TAG
