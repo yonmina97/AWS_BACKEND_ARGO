@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-backend
+  namespace: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: chatbot-backend
+  template:
+    metadata:
+      labels:
+        app: chatbot-backend
+    spec:
+      containers:
+        - name: chatbot-backend
+          image: 986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8282
