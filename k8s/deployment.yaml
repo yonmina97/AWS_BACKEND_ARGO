@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: chatbot-frontend
-          image: 986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/frontend:82356e8ecf71fbe8f3e8b286642ffba31ea95460
+          image: 986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/frontend:2967907a98c2cbb8f2587a995d78b74b399fba2c
           ports:
             - containerPort: 5173
