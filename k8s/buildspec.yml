@@ -4,17 +4,18 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 986611521344.dkr.ecr.ap-northeast-2.amazonaws.com
-      - IMAGE_TAG=$(git log -1 --pretty=%H)
+
 
   pre_build:
     commands:
       - echo "Checking S3 access..."
       - curl -I https://s3.ap-northeast-2.amazonaws.com
+      - yum install -y git
 
   build:
     commands:
       - echo BUILDING THE DOCKER IMAGE...
-      - git clone https://github.com/yonmina97/AWS_BACKEND_CHATBOT.git --branch backend
+      - git clone https://yonmina97:$PAT_TOKEN@github.com/yonmina97/AWS_BACKEND_CHATBOT.git --branch dev
       - cd AWS_BACKEND_CHATBOT
       - IMAGE_TAG=$(git log -1 --pretty=%H)
       - IMAGE_URI=986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/backend:$IMAGE_TAG
@@ -23,7 +24,7 @@ phases:
       - docker tag chatbot_backend:latest $IMAGE_URI
       - docker push $IMAGE_URI
       - cd /
-      - git clone https://github.com/yonmina97/AWS_BACKEND_ARGO.git --branch dev
+      - git clone https://yonmina97:$PAT_TOKEN@github.com/yonmina97/AWS_BACKEND_ARGO.git --branch backend
       - cd AWS_BACKEND_ARGO
       - cd k8s
       - yq -i '.spec.template.spec.containers[0].image = '$IMAGE_URI'
