@@ -28,7 +28,7 @@ phases:
       - git clone https://yonmina97:$PAT_TOKEN@github.com/yonmina97/AWS_BACKEND_ARGO.git --branch frontend
       - cd AWS_BACKEND_ARGO
       - cd k8s
-      - yq -i '.spec.template.spec.containers[0].image = "$IMAGE_URI"' deployment.yaml
+      - yq -i ".spec.template.spec.containers[0].image = \"$IMAGE_URI\"" deployment.yaml
       - git config --global user.email "yonmina97@naver.com"
       - git config --global user.name "JINYOUNG-AUTO"
       - git add .
