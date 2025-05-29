@@ -15,7 +15,7 @@ phases:
   build:
     commands:
       - echo BUILDING THE DOCKER IMAGE...
-      - git clone https://github.com/yonmina97/AWS_FRONTEND_CHATBOT.git --branch dev
+      - git clone https://yonmina97:$PAT_TOKEN@github.com/yonmina97/AWS_FRONTEND_CHATBOT.git --branch dev
       - cd AWS_FRONTEND_CHATBOT
       - IMAGE_TAG=$(git log -1 --pretty=%H)
       - IMAGE_URI=986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/frontend:$IMAGE_TAG
@@ -23,7 +23,7 @@ phases:
       - docker tag -t chatbot_frontend $IMAGE_URI
       - docker push AWS_FRONTEND_CHATBOT
       - cd /
-      - git clone https://github.com/yonmina97/AWS_BACKEND_ARGO.git --branch frontend
+      - git clone https://yonmina97:$PAT_TOKEN@github.com/yonmina97/AWS_BACKEND_ARGO.git --branch frontend
       - cd AWS_BACKEND_ARGO
       - cd k8s
       - yq -i '.spec.template.spec.containers[0].image = '$IMAGE_URI'
