@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: chatbot-backend
-          image: 986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/backend:5f1c39737de49dc4cbdcaa7629fba69019f99ab6
+          image: 986611521344.dkr.ecr.ap-northeast-2.amazonaws.com/chatbot/backend:9f76060e8cc84382780ac83f69b5c2c1ffcde963
           imagePullPolicy: Always
           ports:
             - containerPort: 8282
